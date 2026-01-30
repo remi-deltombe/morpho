@@ -69,7 +69,21 @@ export function VerbForm({ isOpen, onClose, verb, onSuccess }: VerbFormProps) {
     setSelectedTargetLanguage(targetLanguageId)
   }, [targetLanguageId])
 
+  // Set language defaults when profile loads (handles async loading)
   useEffect(() => {
+    if (isOpen && !verb && profile) {
+      if (profile.native_language_id) {
+        setValue('source_language_id', profile.native_language_id)
+      }
+      if (profile.target_language_id) {
+        setValue('target_language_id', profile.target_language_id)
+      }
+    }
+  }, [isOpen, verb, profile, setValue])
+
+  useEffect(() => {
+    if (!isOpen) return
+    
     if (verb) {
       setValue('infinitive', verb.infinitive)
       setValue('translation', verb.translation)
@@ -88,15 +102,19 @@ export function VerbForm({ isOpen, onClose, verb, onSuccess }: VerbFormProps) {
       )
     } else {
       reset({
-        source_language_id: profile?.native_language_id || '',
-        target_language_id: profile?.target_language_id || '',
+        infinitive: '',
+        translation: '',
+        notes: '',
         is_irregular: false,
+        source_language_id: '',
+        target_language_id: '',
       })
       setSelectedCategories([])
       setAudioUrl('')
+      setAudioFile(null)
       setConjugations([])
     }
-  }, [verb, profile, setValue, reset])
+  }, [isOpen, verb, reset])
 
   // Get tenses for selected target language
   const targetLanguage = languages.find((l) => l.id === selectedTargetLanguage)

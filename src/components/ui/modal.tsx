@@ -61,11 +61,12 @@ export function Modal({
           relative w-full ${sizeStyles[size]} mx-4
           bg-card rounded-xl shadow-xl
           animate-slide-up
+          max-h-[90vh] flex flex-col
         `}
       >
         {/* Header */}
         {(title || description) && (
-          <div className="flex items-start justify-between p-6 pb-0">
+          <div className="flex items-start justify-between p-6 pb-0 shrink-0">
             <div>
               {title && (
                 <h2 className="text-lg font-semibold">{title}</h2>
@@ -86,7 +87,7 @@ export function Modal({
         )}
 
         {/* Content */}
-        <div className="p-6">{children}</div>
+        <div className="p-6 overflow-y-auto">{children}</div>
       </div>
     </div>
   )
