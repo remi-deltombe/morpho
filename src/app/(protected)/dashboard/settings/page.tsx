@@ -54,7 +54,8 @@ export default function SettingsPage() {
         .update({
           native_language_id: nativeLanguage,
           target_language_id: targetLanguage,
-        } as { native_language_id: string; target_language_id: string })
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any)
         .eq('id', user.id)
 
       if (error) {
