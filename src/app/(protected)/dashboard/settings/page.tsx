@@ -12,7 +12,7 @@ import { Header } from '@/components/dashboard/header'
 
 export default function SettingsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { profile, isLoading: profileLoading } = useProfile()
+  const { profile, isLoading: profileLoading, refetch: refetchProfile } = useProfile()
   const { languages } = useLanguages()
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [nativeLanguage, setNativeLanguage] = useState('')
@@ -54,12 +54,18 @@ export default function SettingsPage() {
         .update({
           native_language_id: nativeLanguage,
           target_language_id: targetLanguage,
-        } as never)
+        })
         .eq('id', user.id)
 
-      if (error) throw error
+      if (error) {
+        console.error('Save error:', error)
+        throw error
+      }
+      
       toast.success('Language preferences saved')
-    } catch {
+      refetchProfile()
+    } catch (err) {
+      console.error('Failed to save:', err)
       toast.error('Failed to save preferences')
     } finally {
       setIsSaving(false)
@@ -126,12 +132,14 @@ export default function SettingsPage() {
             <CardContent className="space-y-4">
               <Select
                 label="Native Language"
+                placeholder="Select your native language"
                 options={languageOptions}
                 value={nativeLanguage}
                 onChange={(e) => setNativeLanguage(e.target.value)}
               />
               <Select
                 label="Target Language"
+                placeholder="Select target language"
                 options={languageOptions}
                 value={targetLanguage}
                 onChange={(e) => setTargetLanguage(e.target.value)}

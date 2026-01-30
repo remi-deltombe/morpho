@@ -1,6 +1,32 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- =============================================
+-- FULL RESET: Drop everything in correct order
+-- =============================================
+
+-- Drop trigger on auth.users (this table always exists)
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+
+-- Drop functions
+DROP FUNCTION IF EXISTS public.handle_new_user() CASCADE;
+DROP FUNCTION IF EXISTS update_updated_at_column() CASCADE;
+
+-- Drop tables (CASCADE will also drop associated triggers, policies, etc.)
+DROP TABLE IF EXISTS conjugations CASCADE;
+DROP TABLE IF EXISTS verb_categories CASCADE;
+DROP TABLE IF EXISTS word_categories CASCADE;
+DROP TABLE IF EXISTS verbs CASCADE;
+DROP TABLE IF EXISTS words CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS tenses CASCADE;
+DROP TABLE IF EXISTS profiles CASCADE;
+DROP TABLE IF EXISTS languages CASCADE;
+
+-- =============================================
+-- CREATE SCHEMA
+-- =============================================
+
 -- Create profiles table (extends auth.users)
 CREATE TABLE profiles (
   id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,

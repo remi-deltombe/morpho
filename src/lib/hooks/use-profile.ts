@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { Profile, Language } from "@/types/database";
 
@@ -14,47 +14,47 @@ export function useProfile() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchProfile() {
-      const supabase = createClient();
+  const fetchProfile = useCallback(async () => {
+    const supabase = createClient();
 
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-        if (!user) {
-          setError("Not authenticated");
-          setIsLoading(false);
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from("profiles")
-          .select(
-            `
-            *,
-            native_language:languages!profiles_native_language_id_fkey(*),
-            target_language:languages!profiles_target_language_id_fkey(*)
-          `,
-          )
-          .eq("id", user.id)
-          .single();
-
-        if (error) {
-          setError(error.message);
-        } else {
-          setProfile(data);
-        }
-      } catch {
-        setError("Failed to fetch profile");
-      } finally {
+      if (!user) {
+        setError("Not authenticated");
         setIsLoading(false);
+        return;
       }
-    }
 
-    fetchProfile();
+      const { data, error } = await supabase
+        .from("profiles")
+        .select(
+          `
+          *,
+          native_language:languages!fk_native_language(*),
+          target_language:languages!fk_target_language(*)
+        `,
+        )
+        .eq("id", user.id)
+        .single();
+
+      if (error) {
+        setError(error.message);
+      } else {
+        setProfile(data);
+      }
+    } catch {
+      setError("Failed to fetch profile");
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
-  return { profile, isLoading, error };
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  return { profile, isLoading, error, refetch: fetchProfile };
 }
