@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="#09090b"/>
+  <circle cx="256" cy="256" r="160" fill="url(#gradient)" opacity="0.2"/>
+  <text x="256" y="300" font-family="system-ui, sans-serif" font-size="200" font-weight="bold" text-anchor="middle" fill="#0ea5e9">M</text>
+  <circle cx="340" cy="160" r="24" fill="#0ea5e9"/>
+  <defs>
+    <radialGradient id="gradient" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

@@ -1,0 +1,92 @@
+{
+  "languages": [
+    {
+      "name": "English",
+      "code": "en",
+      "tenses": [
+        { "name": "Simple Present", "display_order": 1 },
+        { "name": "Present Continuous", "display_order": 2 },
+        { "name": "Present Perfect", "display_order": 3 },
+        { "name": "Present Perfect Continuous", "display_order": 4 },
+        { "name": "Simple Past", "display_order": 5 },
+        { "name": "Past Continuous", "display_order": 6 },
+        { "name": "Past Perfect", "display_order": 7 },
+        { "name": "Past Perfect Continuous", "display_order": 8 },
+        { "name": "Simple Future", "display_order": 9 },
+        { "name": "Future Continuous", "display_order": 10 },
+        { "name": "Future Perfect", "display_order": 11 },
+        { "name": "Future Perfect Continuous", "display_order": 12 },
+        { "name": "Conditional", "display_order": 13 },
+        { "name": "Conditional Perfect", "display_order": 14 },
+        { "name": "Imperative", "display_order": 15 }
+      ],
+      "persons": [
+        "I",
+        "you",
+        "he/she/it",
+        "we",
+        "you (plural)",
+        "they"
+      ]
+    },
+    {
+      "name": "French",
+      "code": "fr",
+      "tenses": [
+        { "name": "Présent", "display_order": 1 },
+        { "name": "Passé composé", "display_order": 2 },
+        { "name": "Imparfait", "display_order": 3 },
+        { "name": "Plus-que-parfait", "display_order": 4 },
+        { "name": "Passé simple", "display_order": 5 },
+        { "name": "Passé antérieur", "display_order": 6 },
+        { "name": "Futur simple", "display_order": 7 },
+        { "name": "Futur antérieur", "display_order": 8 },
+        { "name": "Conditionnel présent", "display_order": 9 },
+        { "name": "Conditionnel passé", "display_order": 10 },
+        { "name": "Subjonctif présent", "display_order": 11 },
+        { "name": "Subjonctif passé", "display_order": 12 },
+        { "name": "Subjonctif imparfait", "display_order": 13 },
+        { "name": "Subjonctif plus-que-parfait", "display_order": 14 },
+        { "name": "Impératif", "display_order": 15 },
+        { "name": "Participe présent", "display_order": 16 },
+        { "name": "Participe passé", "display_order": 17 }
+      ],
+      "persons": [
+        "je",
+        "tu",
+        "il/elle/on",
+        "nous",
+        "vous",
+        "ils/elles"
+      ]
+    },
+    {
+      "name": "Finnish",
+      "code": "fi",
+      "tenses": [
+        { "name": "Preesens (Present)", "display_order": 1 },
+        { "name": "Imperfekti (Past)", "display_order": 2 },
+        { "name": "Perfekti (Perfect)", "display_order": 3 },
+        { "name": "Pluskvamperfekti (Pluperfect)", "display_order": 4 },
+        { "name": "Konditionaali (Conditional)", "display_order": 5 },
+        { "name": "Potentiaali (Potential)", "display_order": 6 },
+        { "name": "Imperatiivi (Imperative)", "display_order": 7 },
+        { "name": "Passiivi preesens (Passive Present)", "display_order": 8 },
+        { "name": "Passiivi imperfekti (Passive Past)", "display_order": 9 },
+        { "name": "Infinitiivi I (Infinitive I)", "display_order": 10 },
+        { "name": "Infinitiivi II (Infinitive II)", "display_order": 11 },
+        { "name": "Infinitiivi III (Infinitive III)", "display_order": 12 },
+        { "name": "Infinitiivi IV (Infinitive IV)", "display_order": 13 },
+        { "name": "Partisiipit (Participles)", "display_order": 14 }
+      ],
+      "persons": [
+        "minä",
+        "sinä",
+        "hän",
+        "me",
+        "te",
+        "he"
+      ]
+    }
+  ]
+}
