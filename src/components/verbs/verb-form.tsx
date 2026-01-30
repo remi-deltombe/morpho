@@ -69,22 +69,11 @@ export function VerbForm({ isOpen, onClose, verb, onSuccess }: VerbFormProps) {
     setSelectedTargetLanguage(targetLanguageId)
   }, [targetLanguageId])
 
-  // Set language defaults when profile loads (handles async loading)
-  useEffect(() => {
-    if (isOpen && !verb && profile) {
-      if (profile.native_language_id) {
-        setValue('source_language_id', profile.native_language_id)
-      }
-      if (profile.target_language_id) {
-        setValue('target_language_id', profile.target_language_id)
-      }
-    }
-  }, [isOpen, verb, profile, setValue])
-
   useEffect(() => {
     if (!isOpen) return
     
     if (verb) {
+      // Editing existing verb
       setValue('infinitive', verb.infinitive)
       setValue('translation', verb.translation)
       setValue('is_irregular', verb.is_irregular)
@@ -101,20 +90,21 @@ export function VerbForm({ isOpen, onClose, verb, onSuccess }: VerbFormProps) {
         }))
       )
     } else {
+      // Reset form fields for new verb, then set language defaults
       reset({
         infinitive: '',
         translation: '',
         notes: '',
         is_irregular: false,
-        source_language_id: '',
-        target_language_id: '',
+        source_language_id: profile?.native_language_id || '',
+        target_language_id: profile?.target_language_id || '',
       })
       setSelectedCategories([])
       setAudioUrl('')
       setAudioFile(null)
       setConjugations([])
     }
-  }, [isOpen, verb, reset])
+  }, [isOpen, verb, profile, reset])
 
   // Get tenses for selected target language
   const targetLanguage = languages.find((l) => l.id === selectedTargetLanguage)

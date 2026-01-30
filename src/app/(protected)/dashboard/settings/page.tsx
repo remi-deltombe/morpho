@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 import { User, Languages, Palette, Shield, Moon, Sun, Monitor } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
@@ -15,17 +15,17 @@ export default function SettingsPage() {
   const { profile, isLoading: profileLoading } = useProfile()
   const { languages } = useLanguages()
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const [nativeLanguage, setNativeLanguage] = useState(profile?.native_language_id || '')
-  const [targetLanguage, setTargetLanguage] = useState(profile?.target_language_id || '')
+  const [nativeLanguage, setNativeLanguage] = useState('')
+  const [targetLanguage, setTargetLanguage] = useState('')
   const [isSaving, setIsSaving] = useState(false)
 
   // Update state when profile loads
-  useState(() => {
+  useEffect(() => {
     if (profile) {
       setNativeLanguage(profile.native_language_id || '')
       setTargetLanguage(profile.target_language_id || '')
     }
-  })
+  }, [profile])
 
   const handleSaveLanguages = async () => {
     if (!nativeLanguage || !targetLanguage) {

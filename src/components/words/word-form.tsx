@@ -64,22 +64,11 @@ export function WordForm({ isOpen, onClose, word, onSuccess }: WordFormProps) {
     },
   });
 
-  // Set language defaults when profile loads (handles async loading)
-  useEffect(() => {
-    if (isOpen && !word && profile) {
-      if (profile.native_language_id) {
-        setValue("source_language_id", profile.native_language_id);
-      }
-      if (profile.target_language_id) {
-        setValue("target_language_id", profile.target_language_id);
-      }
-    }
-  }, [isOpen, word, profile, setValue]);
-
   useEffect(() => {
     if (!isOpen) return;
 
     if (word) {
+      // Editing existing word
       setValue("word", word.word);
       setValue("translation", word.translation);
       setValue("plural_form", word.plural_form || "");
@@ -91,16 +80,15 @@ export function WordForm({ isOpen, onClose, word, onSuccess }: WordFormProps) {
       setImageUrl(word.image_url || "");
       setAudioUrl(word.audio_url || "");
     } else {
-      // Reset form fields for new word
-
+      // Reset form fields for new word, then set language defaults
       reset({
         word: "",
         translation: "",
         plural_form: "",
         example_sentence: "",
         notes: "",
-        source_language_id: "",
-        target_language_id: "",
+        source_language_id: profile?.native_language_id || "",
+        target_language_id: profile?.target_language_id || "",
       });
       setSelectedCategories([]);
       setImageUrl("");
