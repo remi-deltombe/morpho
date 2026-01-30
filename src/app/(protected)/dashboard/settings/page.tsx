@@ -12,9 +12,9 @@ import { Header } from '@/components/dashboard/header'
 
 export default function SettingsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { profile, isLoading: profileLoading, refetch: refetchProfile } = useProfile()
+  const { profile, refetch: refetchProfile } = useProfile()
   const { languages } = useLanguages()
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const [nativeLanguage, setNativeLanguage] = useState('')
   const [targetLanguage, setTargetLanguage] = useState('')
   const [isSaving, setIsSaving] = useState(false)
@@ -49,13 +49,12 @@ export default function SettingsPage() {
         return
       }
 
-      const { error } = await supabase
-        .from('profiles')
+      const { error } = await (supabase
+        .from('profiles') as ReturnType<typeof supabase.from>)
         .update({
           native_language_id: nativeLanguage,
           target_language_id: targetLanguage,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any)
+        } as Record<string, unknown>)
         .eq('id', user.id)
 
       if (error) {
