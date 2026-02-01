@@ -14,6 +14,7 @@ import {
   Moon,
   Sun,
   X,
+  Brain,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useTheme } from '@/components/theme-provider'
@@ -25,6 +26,7 @@ interface SidebarProps {
 }
 
 const navItems = [
+  { href: '/dashboard/practice', label: 'Practice', icon: Brain },
   { href: '/dashboard', label: 'Words', icon: BookOpen },
   { href: '/dashboard/verbs', label: 'Verbs', icon: BookA },
   { href: '/dashboard/categories', label: 'Categories', icon: Folder },

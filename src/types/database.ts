@@ -126,6 +126,9 @@ export interface Database {
           notes: string | null
           image_url: string | null
           audio_url: string | null
+          learning_score: number
+          last_practiced: string | null
+          practice_count: number
           created_at: string
           updated_at: string
         }
@@ -141,6 +144,9 @@ export interface Database {
           notes?: string | null
           image_url?: string | null
           audio_url?: string | null
+          learning_score?: number
+          last_practiced?: string | null
+          practice_count?: number
           created_at?: string
           updated_at?: string
         }
@@ -156,6 +162,9 @@ export interface Database {
           notes?: string | null
           image_url?: string | null
           audio_url?: string | null
+          learning_score?: number
+          last_practiced?: string | null
+          practice_count?: number
           created_at?: string
           updated_at?: string
         }
@@ -185,6 +194,9 @@ export interface Database {
           is_irregular: boolean
           notes: string | null
           audio_url: string | null
+          learning_score: number
+          last_practiced: string | null
+          practice_count: number
           created_at: string
           updated_at: string
         }
@@ -198,6 +210,9 @@ export interface Database {
           is_irregular?: boolean
           notes?: string | null
           audio_url?: string | null
+          learning_score?: number
+          last_practiced?: string | null
+          practice_count?: number
           created_at?: string
           updated_at?: string
         }
@@ -211,6 +226,9 @@ export interface Database {
           is_irregular?: boolean
           notes?: string | null
           audio_url?: string | null
+          learning_score?: number
+          last_practiced?: string | null
+          practice_count?: number
           created_at?: string
           updated_at?: string
         }
@@ -300,4 +318,36 @@ export type VerbWithConjugations = Verb & {
   conjugations: (Conjugation & { tense: Tense })[]
   source_language: Language
   target_language: Language
+}
+
+// Practice types
+export type PracticeItemType = 'word' | 'verb'
+
+export type PracticeItem = {
+  id: string
+  type: PracticeItemType
+  targetText: string
+  translationText: string
+  pluralForm?: string | null
+  exampleSentence?: string | null
+  audioUrl?: string | null
+  learningScore: number
+  lastPracticed: string | null
+  practiceCount: number
+  targetLanguage: Language
+  sourceLanguage: Language
+  categories: Category[]
+}
+
+export type QuestionLevel = 0 | 1 | 2 | 3 | 4
+
+export type QuestionDirection = 'target-to-source' | 'source-to-target'
+
+export type QuestionConfig = {
+  level: QuestionLevel
+  direction: QuestionDirection
+  showExamples: boolean
+  showPluralForm: boolean
+  audioAutoPlay: boolean
+  audioPlayLimit: number | null // null means unlimited
 }
